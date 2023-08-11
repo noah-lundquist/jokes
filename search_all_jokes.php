@@ -1,28 +1,27 @@
-<?php 
-
-//and used to try to connect to the db
-if($conn->connect_errno){
-    //if a piece of the data is wrong this error message will be displayed
-    echo "Failed to connect to MySQL: (" . $conn->connect_errno . ")" . $conn->connect_error;
+<?php
+// if there are no values in the table, display error message
+if ($mysqli->connect_errno) {
+    echo "Failed to connect to MYSQL: (" . $mysqli->connect_errno;
 }
-//other wise it will show a little message letting the user know the app is connected to the database
-echo $conn->host_info . "<br>";
 
-//this is an SQL statement to pull the data from each row of the `jokes` table
-$sql = "SELECT id, Joke_Question, Joke_Answer FROM jokes_table";
-//this variable tests the db connection and then querires it for the information saved in the `sql` variable
-$result = $conn->query($sql);
+// display the gost info
+echo $mysqli->host_info . "<br>";
 
-//if the table is not empty
-if($result->num_rows > 0){
-    //the row is selected
-    while($row = $result->fetch_assoc()){
-        //And a concatenated string is created for each row
-        echo "id: " . $row["id"] . " Joke question: " . $row["Joke_Question"] .
-        " " . $row["Joke_Answer"] . "<br>";
+// query to get all jokes from the database
+$sql = "SELECT JokeID, Joke_question, Joke_answer FROM jokes_table";
+
+// storing result of query in result
+$result = $mysqli->query($sql);
+
+// if there are any results, then print them to the screen, else print 0 results
+if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        echo "<h1>" . $row['Joke_question'] . "</h1>";
+
+        echo "<div><p>" . $row['Joke_answer'] . " submitted by usr # " . $row['users_table_id'] ."</p></div>";
     }
-} else{
-    //otherwise this message is displayed to let the user know there are no results
+} else {
     echo "0 results";
 }
 
