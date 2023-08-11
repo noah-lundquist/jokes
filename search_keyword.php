@@ -1,67 +1,54 @@
 <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>jQuery UI Accordion - Default functionality</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+ 
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#accordion" ).accordion();
+  } );
+  </script>
+</head><?php
 
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-    <script>
-        $( function() {
-            $( "#accordion" ).accordion();
-        } );
-    </script>
-    <style>
-        * {
-            font-family: Arial, Helvetica, sans-serrif;
-        }
-    </style>
-</head>
-
-<?php
-
-// connect to database
 include "db_connect.php";
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-
-//get the keyword from the URL
-$keywordfromform = ["keyword"];
+$keywordfromform = addslashes($_GET['keyword']);
 echo $keywordfromform;
 
+
+
+
+echo "<h2>Show all jokes with the word " . $keywordfromform . "</h2>";
 $keywordfromform = "%" . $keywordfromform . "%";
 
-// serch the database
-echo "<h1>Show all jokes with the word $keywordfromform</h1>";
+$stmt = $mysqli->prepare("SELECT jt.JokeID, jt.Joke_question, jt.Joke_answer, jt.user_id, u.user_name FROM jokes_table jt JOIN users u ON u.user_id = jt.user_id WHERE jt.Joke_question LIKE ?");
+
+$stmt->bind_param("s", $keywordfromform);
+
+$stmt->execute();
+$stmt->store_result();
+
+$stmt->bind_result($JokeID, $Joke_question, $Joke_answer, $userid, $username);
 
 
-// query to get all jokes from the database
-// replace the variables in the sql statement with question marks.
-$stmt = $mysqli->prepare("
-    SELECT JokeID, Joke_question, Joke_answer, users_table_id, username 
-    FROM jokes_table 
-    JOIN users_table 
-    ON users_table.id = jokes_table.users_table_id 
-    WHERE Joke_question LIKE ?");
-
-$stmt->bind_param("s", $keywordfromform); // bind the variables seperatly to the question marks.
-
-$stmt->execute(); // execute the query
-$stmt->store_result(); // store the result from the query
-
-$stmt->bind_result($JokeID, $Joke_question, $Joke_answer, $users_table_id, $username); // bind the result data to new variables
-
-// if there are any results, then print them to the screen, else print 0 results
 if ($stmt->num_rows > 0) {
-
-
     // output data of each row
+
     echo "<div id='accordion'>";
-    while($row = $stmt->fetch()) {
-        echo "<h3>" . $Joke_question . "</h3>";
+    while($stmt->fetch()) {
+        $safe_joke_question = htmlspecialchars($Joke_question);
+        $safe_joke_answer = htmlspecialchars($Joke_answer);
 
-        echo "<div><p>" . $Joke_answer . "-- Submitted by user " . $username . "</p></div>";
-
-
+        echo "<h3>" . $safe_joke_question . "</h3>";
+        
+        echo "<div><p>" . $safe_joke_answer  . " -- Submitted by user " . $username ."</p></div>";
     }
+
     echo "</div>";
 } else {
     echo "0 results";
