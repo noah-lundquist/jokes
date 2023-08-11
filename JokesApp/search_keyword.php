@@ -1,15 +1,14 @@
-<?php 
+<?php
 
-//and used to try to connect to the db
-if($conn->connect_errno){
-    //if a piece of the data is wrong this error message will be displayed
-    echo "Failed to connect to MySQL: (" . $conn->connect_errno . ")" . $conn->connect_error;
-}
-//other wise it will show a little message letting the user know the app is connected to the database
-echo $conn->host_info . "<br>";
+//The file with the db connection code needs to be included in this file
+include "db_connector.php";
 
-//this is an SQL statement to pull the data from each row of the `jokes` table
-$sql = "SELECT id, Joke_Question, Joke_Answer FROM jokes_table";
+$keywordfromform = $_GET["keyword"];
+
+//This SQL statement will search the database for any rows containing the keyword that was searched for.
+echo "<h2> Show all jokes with the word '" . $keywordfromform . "'</h2>";
+$sql = "SELECT id, Joke_Question, Joke_Answer FROM jokes_table WHERE Joke_Question LIKE '%". $keywordfromform . "%'"
+     || "SELECT id, first_Name, last_Name FROM employees_table WHERE last_Name LIKE '%" . $keywordfromform . "%'";
 //this variable tests the db connection and then querires it for the information saved in the `sql` variable
 $result = $conn->query($sql);
 

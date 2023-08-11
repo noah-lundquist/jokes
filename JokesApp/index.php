@@ -33,9 +33,6 @@
   </head>
 <body>
 
-<h1 class="display-1 text-center">Jokes App</h1>
-<hr>
-
 <?php 
 
 //This includes the code to be able to connect to the DB
@@ -44,7 +41,7 @@ include "db_connector.php";
 
 ?>
 <!-- This is the form to allow the user to search for keywords to pull up jokes containing those keywords within the db -->
-    <div id="keywordSearch" class="container mt-0">
+    <div id="keywordSearch" class="container">
       <form action="search_keyword.php">
         <div class="form-group">
           <label for="keyword" class="display-4"> Keyword Search </label>
@@ -60,14 +57,8 @@ include "db_connector.php";
           >
         </div>
         
-        <div class="row">
-       	<div class="col-3">
         <button type="submit" class="btn btn-primary">Search</button>
-        </div>
-        <div class="col-4">
-                  <a href="search_all_jokes.php" class="col-3"> Veiw all jokes</a>
-        </div>
-        </div>
+        
       </form>
     </div>
 
@@ -76,7 +67,6 @@ include "db_connector.php";
 <!-- This is the form to allow the user to add a joke with an answer -->
     <div id="new_Joke" class="container">
         <form action="new_Joke.php">
-        
           <div class="form-group">
             <label for="newJoke" class="display-4">Add a Joke</label>
             <br>

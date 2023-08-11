@@ -1,6 +1,6 @@
-<html>
-
-<head>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,7 +11,7 @@
       integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="styles.css"/>
+    <link rel="stylesheet" href="styles.css" />
 
     <script
       src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
@@ -29,22 +29,10 @@
       crossorigin="anonymous"
     ></script>
 
-    <title>Jokes App</title>
+    <title>Document</title>
   </head>
-<body>
-
-<h1 class="display-1 text-center">Jokes App</h1>
-<hr>
-
-<?php 
-
-//This includes the code to be able to connect to the DB
-include "db_connector.php";
-//This includes the code to be able to search and display all the jokes in the DB
-
-?>
-<!-- This is the form to allow the user to search for keywords to pull up jokes containing those keywords within the db -->
-    <div id="keywordSearch" class="container mt-0">
+  <body>
+    <div id="keywordSearch" class="container">
       <form action="search_keyword.php">
         <div class="form-group">
           <label for="keyword" class="display-4"> Keyword Search </label>
@@ -59,60 +47,36 @@ include "db_connector.php";
             >Enter the keyword you would like to search</small
           >
         </div>
-        
-        <div class="row">
-       	<div class="col-3">
+
         <button type="submit" class="btn btn-primary">Search</button>
-        </div>
-        <div class="col-4">
-                  <a href="search_all_jokes.php" class="col-3"> Veiw all jokes</a>
-        </div>
-        </div>
       </form>
     </div>
 
-<hr>
-
-<!-- This is the form to allow the user to add a joke with an answer -->
     <div id="new_Joke" class="container">
         <form action="new_Joke.php">
-        
           <div class="form-group">
-            <label for="newJoke" class="display-4">Add a Joke</label>
+            <label for="addJoke" class="display-4">Add a Joke</label>
             <br>
-            <label for="newJoke"> First half of joke </label>
+            <label for="firstHalf"> First half of joke </label>
             <input
               type="text"
               class="form-control col-4"
-              id="newJoke"
-              name="newJoke"
-              aria-describedby="newJoke"
+              id="firstHalf"
+              name="firstHalf"
+              aria-describedby="FirstHalfOfJoke"
             />
-            
-            <label for="newAnswer"> Add a Joke </label>
+            <label for="secondHalf"> Add a Joke </label>
             <input
               type="text"
               class="form-control col-4"
-              id="newAnswer"
-              name="newAnswer"
-              aria-describedby="newAnswer"
+              id="secondHalf"
+              name="secondHalf"
+              aria-describedby="SecondHalfOfJoke"
             />
           </div>
-          
-        <button type="submit" class="btn btn-primary">Add Joke</button>
-          
+
+          <button type="submit" class="btn btn-primary">Add Joke</button>
+
         </form>
-    </div>
-
-
-<?php
-//This includes the code to allow the search of jokes containing a keyword
-//include "search_keyword.php";
-
-
-    //Then the DB is closed
-$conn->close();
-?>
-
-</body>
+  </body>
 </html>
