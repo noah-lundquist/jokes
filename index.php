@@ -1,80 +1,99 @@
 <html>
 <head>
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
     <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
     <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-
 <h1>Jokes Page</h1>
-<a href="search_all_jokes.php">Show all jokes</a>
-<br>
+
+<a href="login_form.php">Click here to login</a><br>
+<a href="register.php">Click here to register</a><br>
+
 
 <?php
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
 
-    include "db_connect.php"; 
+include "db_connect.php";
+
 ?>
 
+<!--Search for a keyword form-->
 <form class="form-horizontal" action="search_keyword.php">
-<fieldset>
-    <legend>Search for a Joke</legend>
+    <fieldset>
 
-    <div class="form-group">
-        <label class="col-md-4 control-label" for="keyword">Search input</label>
+        <!-- Form Name -->
+        <legend>Search For A Joke</legend>
+
+        <!-- Search input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="keyword">Search Input</label>
             <div class="col-md-5">
-                <input id = "keyword" type="search" name="keyword" placeholder="e.g. chicken" class="form-control input-md" required="">
-            <p class="help-block">Enter a keyword to search for in the joke database</p>
+                <input id="keyword" name="keyword" type="search" placeholder="e.g. chicken pot pie" class="form-control input-md" required="">
+                <p class="help-block">Enter a word to search for....</p>
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <label for="submit" class="col-md-4 control-label"></label>
-        <div class-"col-md-4">
-            <button id="submit" name="submit" class="btn btn-primary">Search</button>
+        <!-- Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="submit"></label>
+            <div class="col-md-4">
+                <button id="submit" name="submit" class="btn btn-success">Search</button>
+            </div>
         </div>
-    </div>
-</fieldset>
-</form>
-
-<hr>
-
-<form class="form-horizontal" action="add_joke.php">
-<fieldset>
-    <legend>Add a new Joke</legend>
-
-    <div class="form-group">
-        <label class="col-md-4 control-label" for="newjoke">New Joke</label>
-        <div class="col-md-5">
-            <input id = "newjoke" type="text" name="newjoke" placeholder="joke question" class="form-control input-md" required="">
-            <p class="help-block">Enter the joke question</p>
-        </div>
-        <label class="col-md-4 control-label" for="jokeanswer">Joke Answer</label>
-        <div class="col-md-5">
-            <input id = "jokeanswer" type="text" name="jokeanswer" placeholder="joke answer" class="form-control input-md" required="">
-            <p class="help-block">Enter the joke answer</p>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label for="submit" class="col-md-4 control-label"></label>
-        <div class-"col-md-4">
-            <button id="submit" name="submit" class="btn btn-primary">OK</button>
-        </div>
-    </div>
 
     </fieldset>
 </form>
 
- 
-<?php 
+
+<hr>
+
+<!--Add a joke form-->
+<form class="form-horizontal" action="/add_joke.php">
+    <fieldset>
+
+        <!-- Form Name -->
+        <legend>Add A Joke</legend>
+
+        <!-- Search input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="newjoke">Joke question</label>
+            <div class="col-md-6">
+                <input id="newjoke" name="newjoke" type="search" placeholder="" class="form-control input-md" required="">
+                <p class="help-block">Enter the first half of your joke...</p>
+            </div>
+        </div>
+
+        <!-- Search input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="jokeanswer">Joke punch line</label>
+            <div class="col-md-6">
+                <input id="jokeanswer" name="jokeanswer" type="search" placeholder="" class="form-control input-md" required="">
+                <p class="help-block">Enter the punch line of your new joke...</p>
+            </div>
+        </div>
+
+        <!-- Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="submit"></label>
+            <div class="col-md-4">
+                <button id="submit" name="submit" class="btn btn-success">Add new joke</button>
+            </div>
+        </div>
+
+    </fieldset>
+</form>
+<?php
+
+// close sql stream
 $mysqli->close();
 ?>
-
 </body>
+
 </html>
+
