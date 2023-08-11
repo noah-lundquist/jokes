@@ -4,18 +4,12 @@ ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
 // modify these settings according to the account on your database server.
-//$host = "localhost";
-//$port = "3306";
-//$username = "root";
-//$user_pass = "root";
-//$database_in_use = "jokesdb";
-
-
-$host = "n4m3x5ti89xl6czh.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
+$host = "localhost";
 $port = "3306";
-$username = "jf1mwibua5u1vdu0";
-$user_pass = "iry680nyu33gjndd";
-$database_in_use = "g2qpsnk0zp3m6lt2";
+$username = "root";
+$user_pass = "root";
+$database_in_use = "JokesPart1";
+
 
 $mysqli = new mysqli($host, $username, $user_pass, $database_in_use);
 if ($mysqli->connect_error) {
